@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <meta http-equiv='X-UA-Compatible' content='ie=edge' />
+  {% load staticfiles %}
+  <link rel='stylesheet' href='{% static "secretsapp/css/styles.css" %}' />
+  <title>Top Secrets</title>
+</head>
+<body>
+  <nav>
+    <a href='/'>home</a>
+    <a href='top'>top</a>
+  </nav>
+  {% for secret in secrets %}
+  <div class='secret'>
+    <p>{{secret.message}}</p>
+    <div class='likes'>
+      <span>{{secret.likes}}</span>
+      <form action='like' method='POST'>
+        {% csrf_token %}
+        <input type='text' name='id' value='{{secret.id}}' hidden/>
+        <input type='submit' value='Like'/>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</body>
+</html>
